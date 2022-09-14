@@ -21,23 +21,23 @@ const airlineData = {
     lastFlights : [],
 }
 const airline = () =>{
-    airlineData.user.name = prompt('Introduzca su nombre');
+    airlineData.user.name = prompt('Bienvenido a ISDI Coders Airlines! \nIntroduzca su nombre:');
     while (airlineData.user.name == ''){
-        alert('No ha introducido nungun valor');
-        airlineData.user.name = prompt('Por favor, introduzca su nombre');
+        alert('No ha introducido nungun valor.');
+        airlineData.user.name = prompt('Por favor, introduzca su nombre:');
     }if(airlineData.user.name == null){
-        alert('buen viaje');
+        alert('Buen viaje.');
     }else{
     airlineDataShow();
     }
 }
 const airlineDataShow = () => {
     airlineDataManagement()
-    alert(`Bienvenido, ${airlineData.user.name}.`+"\nA continuación le mostramos los vuelos disponibles: ");
-    alert(airlineData.flightsList.join(''));
-    alert(`El PRECIO MEDIO de los vuelos es de ${airlineData.allPrices/flights.length}€.`);
-    alert("\nA continuación le mostramos los vuelos CON ESCALA: \n" + airlineData.flightsScale.join(''));
-    alert('Los destinos de los ULTIMOS vuelos de hoy son: \n' + airlineData.lastFlights.join(''));
+    console.log(`Bienvenido, ${airlineData.user.name}.`+"\nA continuación le mostramos los vuelos disponibles: ");
+    console.log(airlineData.flightsList.join(''));
+    console.log(`El PRECIO MEDIO de los vuelos es de ${airlineData.allPrices/flights.length}€.`);
+    console.log("\nA continuación le mostramos los vuelos CON ESCALA: \n" + airlineData.flightsScale.join(''));
+    console.log('Los destinos de los ULTIMOS vuelos de hoy son: \n' + airlineData.lastFlights.join(''));
 }
 const airlineDataManagement = () => {
     for ( num in flights ){
