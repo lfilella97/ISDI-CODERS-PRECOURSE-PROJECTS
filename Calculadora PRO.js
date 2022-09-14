@@ -12,8 +12,7 @@ function calculadora(){
     }while(response != null)
     alert('Bye!')
 }
-
-function getNumbers(){debugger
+function getNumbers(){
     valoresIntroducidos = []
     result = []
     let = count = -1;
@@ -42,7 +41,6 @@ function getNumbers(){debugger
     }while (count < 100);
     return result;
 }
-
 function operaciones(){
     function sum() {
         let acc = 0;
