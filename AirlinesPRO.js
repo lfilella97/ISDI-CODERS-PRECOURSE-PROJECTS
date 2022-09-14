@@ -81,7 +81,6 @@ const adminDataList = () => {
     let count =[]
     airlineData.user.admin.cancelFlight = ((prompt('¿Quieres eliminar algun vuelo? \n Si (aceptar) / No (cancelar)') == null) ? false : true);
     while (airlineData.user.admin.cancelFlight == true){
-        debugger
         count.push(prompt('Introduce el numero de vuelo a eliminar: \n(solo se tendran en cuanta numeros de vuelos existentes) \n\n ' + airlineData.flightsList.join('')));
         (count < 15) ? airlineData.user.admin.deletedFlightsID.push(+count) : false
         count = []   
