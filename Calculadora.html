@@ -1,0 +1,79 @@
+calculadora<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <script>
+/*Haz una calculadora. Un único programa al que le pasarás dos parámetros y el usuario podrá visualizar por consola la suma, resta, multiplicación y división entre ambos números. 
+El resultado debería ser mostrado con 3 decimales como mucho (en caso de que hubieran).
+El programa debe gestionar y actuar correctamente (gestión de errores) en el caso de que el usuario introduzca cualquier cosa que no sean números.
+
+Si el usuario introduce un solo numero, deberá mostrar SOLO su raíz cuadrada, si vuelve a introducir los dos, volverá a mostrar las 4 operaciones de siempre.
+Si el usuario introduce una letra, debera mostrarle un aviso de que lo que ha introducido no es un número
+Los resultados deberían almacenarse dentro de una array y mostrarlos de una forma amigable al usuario.
+*/
+
+let digitOne = prompt('introduce el primer número:');
+let digitTwo = prompt('introduce el segundo número:');
+
+let aceptarDoble = (digitOne === "" && digitTwo === "");
+let nullDoble = (digitOne === null && digitTwo === null);
+let zeroDoble = (digitOne === "0" && digitTwo === "0");
+
+let aceptar = (digitOne === "" || digitTwo === "");
+let nu11 = (digitOne === null || digitTwo === null);
+let zero = (digitOne === "0" || digitTwo === "0");
+
+let cal = []
+
+function calculadora(){
+    
+    if ( aceptarDoble || nullDoble || zeroDoble || (aceptar && nu11 || nu11 && zero || aceptar && zero) ){
+        alert('Los valores introducidos no son correctos.');
+        result = 'Error! *1*';
+    }else if (aceptar || nu11){
+            digitOne = Number(digitOne);
+            digitTwo = Number(digitTwo);
+            if(!(isNaN(digitOne) || isNaN(digitTwo))){
+                !(digitOne === 0 ) ? result = 'El cuadrado de ' + digitOne + ' es: ' + digitOne*digitOne + '.' : result = 'El cuadrado de ' + digitTwo + ' es: ' + digitTwo*digitTwo + '.'
+            }else{
+                alert('Los valores introducidos no son correctos.');
+                result = 'Error! *2*';
+            }
+    }else{
+        digitOne = Number(digitOne);
+        digitTwo = Number(digitTwo);
+        if (isNaN(digitOne) || isNaN(digitTwo)){
+            alert('Los valores introducidos no son correctos.');
+            result = 'Error! *3*';
+        }else {
+            suma = digitOne + digitTwo
+            resta = digitOne - digitTwo
+            multiplicacion = digitOne * digitTwo
+            division = digitOne / digitTwo
+            
+            mensaje = 'El calculo con los numeros ' + digitOne +', ' + digitTwo + ' es: '
+            cal = [suma, resta, multiplicacion, division]
+            for ( i = 0 ; i < cal.length ; i++ ){
+                if( !(Number.isInteger(cal[i])) ){
+                   cal[i] = cal[i].toFixed(3)
+                }
+            }
+            result = mensaje + cal[0] + ', ' + cal[1] + ', ' + cal[2] + ' y ' + cal[3] + '.'
+        }
+    }
+
+    resultArray.push(cal)
+    
+
+    return console.log(result), resultArray
+}
+
+calculadora()
+    </script>
+</body>
+</html>
