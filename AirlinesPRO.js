@@ -1,14 +1,4 @@
-Airlines<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airlines</title>
-</head>
-<body>
-    <script>
-//airline() para inicializar
+ 
 const flights = [
   { id: 00, to: "New York", from: "Barcelona", cost: 700, scale: false },
   { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, scale: true },
@@ -141,6 +131,4 @@ const dataManagement = () => { //refrescar valores
         airlineData.user.admin.deletedFlightsID = []
     }
 }
-    </script>
-</body>
-</html>
+airline()
