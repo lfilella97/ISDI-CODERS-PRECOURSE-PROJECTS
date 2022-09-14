@@ -1,33 +1,4 @@
- Airlines<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airlines</title>
-</head>
-<body>
-    <script>
 
-/*ISDI Coders Airlines! 
-(Los datos de los vuelos están al final del enunciado, podéis usarlos en vuestro código)
-
-Programa una inferfaz de usuario para una aerolinea (por terminal...). Esta aerolinea dispondrá de 10 vuelos para el dia de hoy, para empezar, estos vuelos estarán declarados de manera global, cuando se llame a la función:
-
-Se preguntará por el nombre de usuario y dará la bienvenida.
-El usuario visualizará todos los vuelos disponibles de una forma amigable: El vuelo con origen: Barcelona, y destino: Madrid tiene un coste de XXXX€ y no realiza ninguna escala.
-A continuación, el usuario verá el coste medio de los vuelos.
-También podrá ver cuantos vuelos efectúan escalas.
-Y, sabiendo que los ultimos 5 vuelos (los últimos 5 ID's) son los últimos del día, muestra al usuario sus destinos.
-
-1. LOG IN + BIENVENIDA
-2. LISTA DE VUELOS: El vuelo con origen: Barcelona, y destino: Madrid tiene un coste de XXXX€ y no realiza ninguna escala.
-3. COSTE MEDIO DE LOS VUELOS
-4. VUELOS QUE HACEN ESCALA
-5. DESTINO ULTIMOS 5 VUELOS
-*/
-
-// This is a example of array of objects... each position of array contains one object...
 const flights = [
   { id: 00, to: "New York", from: "Barcelona", cost: 700, scale: false },
   { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, scale: true },
@@ -80,6 +51,4 @@ const airlineDataManagement = () => {
         }
     }
 }
-    </script>
-</body>
-</html>
+airline()
