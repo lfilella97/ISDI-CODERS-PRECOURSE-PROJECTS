@@ -48,11 +48,6 @@ function calculadora(){
             result = mensaje + cal[0] + ', ' + cal[1] + ', ' + cal[2] + ' y ' + cal[3] + '.'
         }
     }
-
-    resultArray.push(cal)
-    
-
-    return console.log(result), resultArray
+    return console.log(result)
 }
 calculadora()
-  
