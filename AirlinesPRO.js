@@ -71,7 +71,7 @@ const adminDataList = () => {
         flights.push({id: flights.length , to: undefined, from: undefined, cost: undefined, scale: undefined });
         flights[flights.length - 1].to = (prompt('A continuacion debes añadir los datos del vuelo: \n Destino:'));
         flights[flights.length - 1].from = prompt('A continuacion debes añadir los datos del vuelo: \n Salida:');
-        airlineData.user.admin.introducedPrice = +prompt('A continuacion debes añadir los datos del vuelo: \n Precio:');debugger
+        airlineData.user.admin.introducedPrice = +prompt('A continuacion debes añadir los datos del vuelo: \n Precio:');
             (Number.isNaN(airlineData.user.admin.introducedPrice)) ? flights[flights.length - 1].cost = 0 : flights[flights.length - 1].cost = airlineData.user.admin.introducedPrice;
         flights[flights.length - 1].scale = prompt('A continuacion debes añadir los datos del vuelo: \n Escala: Si (aceptar) / No (cancelar)') == null ? false : true ;
         airlineData.user.admin.addFlight = ((prompt('¿Quieres añadir mas vuelos? \n Si (aceptar) / No (cancelar)') == null) ? false : true); 
