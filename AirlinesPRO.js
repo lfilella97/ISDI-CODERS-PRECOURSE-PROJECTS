@@ -19,6 +19,7 @@ const airlineData = {
         rang : undefined,
         admin : {
             addFlight : undefined,
+            introducedPrice : undefined,
             cancelFlight : undefined,
             deletedFlightsID : [],
             deletedFlights : [],
@@ -34,7 +35,7 @@ const airline = () =>{
     rankUser();
     airlineData.user.rang == 'admin' ? adminDataList() : 
     airlineData.user.rang == 'user' ? userDataList() : false ;
-    alert('Hasta la próxima');
+    alert('Introduce airline() en la consola para volver a empezar. \nHasta la próxima');
 }
 const greetingsUser = () => {
     airlineData.user.name = prompt('Bienvenido a ISDI Coders Airlines! \nIntroduzca su nombre:');
@@ -70,7 +71,8 @@ const adminDataList = () => {
         flights.push({id: flights.length , to: undefined, from: undefined, cost: undefined, scale: undefined });
         flights[flights.length - 1].to = (prompt('A continuacion debes añadir los datos del vuelo: \n Destino:'));
         flights[flights.length - 1].from = prompt('A continuacion debes añadir los datos del vuelo: \n Salida:');
-        flights[flights.length - 1].cost = +prompt('A continuacion debes añadir los datos del vuelo: \n Precio:');
+        airlineData.user.admin.introducedPrice = +prompt('A continuacion debes añadir los datos del vuelo: \n Precio:');debugger
+            (Number.isNaN(airlineData.user.admin.introducedPrice)) ? flights[flights.length - 1].cost = 0 : flights[flights.length - 1].cost = airlineData.user.admin.introducedPrice;
         flights[flights.length - 1].scale = prompt('A continuacion debes añadir los datos del vuelo: \n Escala: Si (aceptar) / No (cancelar)') == null ? false : true ;
         airlineData.user.admin.addFlight = ((prompt('¿Quieres añadir mas vuelos? \n Si (aceptar) / No (cancelar)') == null) ? false : true); 
     }if (flights.length == 15) {
@@ -93,7 +95,7 @@ const adminDataList = () => {
 const userDataList = () => {
     (alert(`Bienvenido ${airlineData.user.name} (User), \nAhora podras filtrar los vuelos por precio, pulsa aceptar \ne introduce un precio. \n\nVeras todos los vuelos que esten por debajo.`));
     airlineData.user.priceSearch = prompt('Filtrar por precio');
-    while (airlineData.user.priceSearch == '' || airlineData.user.priceSearch == null || airlineData.user.priceSearch == isNaN ){
+    while (Number.isNaN(airlineData.user.priceSearch)){
         alert('No ha introducido nungun valor valido.');
         airlineData.user.priceSearch = prompt('Por favor, introduzca un precio:');
     }
