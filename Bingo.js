@@ -2,20 +2,32 @@ const user =
     {
     name : undefined,
     wannaPlay : true,
-    game : {
-        bingoNumbers : [],
+    line : true,
+    line1 : 0,
+    line2 : 0,
+    line3 : 0,
+    fullBingo : 0,
+    card : {
         bingoCard : [],
         shownBingoCard : [],
+        nicerBingoCard : [],
+        },
+    balls : {
+        bingoNumbers : [],
         actualNumber : undefined
         }
     };
+    
 function bingo () {
     greetingsUser();
     if (user.wannaPlay === false){
         return
     };
     startGame();
+    do{
     gameRound();
+    }while(user.wannaPlay === !false);
+    rePlay();
 };
 function greetingsUser () {
     getUserName();
@@ -29,6 +41,19 @@ function gameRound () {
     showUserCard();
     confirmNewNumber();
     checkBingoNumbers();
+    markUserCardNumbers();
+    checkLineAndBingo();
+    if (user.wannaPlay === false){
+        return
+    };
+};
+function rePlay () {
+    user.wannaPlay = confirm('¿Quieres volver a jugar?');
+    if(user.wannaPlay == true){
+        bingo();
+    }else{
+        return;
+    };
 };
 function getUserName () {
     while (promptCheck(user.name) === undefined){
@@ -52,62 +77,134 @@ function promptCheck (it) {
     return true;
 };
 function restartGame () {
-   return user.game.bingoNumbers = [],
-          user.game.bingoCard = [], 
-          user.game.shownBingoCard = [];
+   return user.balls.bingoNumbers = [],
+          user.card.bingoCard = [], 
+          user.card.shownBingoCard = [];
 };
 function showUserCard () {
     getUserBingoCard ();
-    //alert(`Este es su carton: \n |${user.game.shownBingoCard.join('| |')}|`)
+    makeUserBingoCardNice();
+    alert(`Este es su carton: \n| |${user.card.nicerBingoCard.join('| |')}`)
 };
 function getUserBingoCard () {
-    user.game.shownBingoCard = [];
-    for (let i = 0 ; i < 5 ; i++){
-        user.game.shownBingoCard.push(user.game.bingoCard[i].number);
+    if ( user.card.shownBingoCard.length < 15 ){// editar el 5 per 15 quan vulgi 15 numeros
+        
+        for ( let i = 0 ; i < 15 ; i++){// editar el 5 per 15 quan vulgi 15 numeros
+        user.card.shownBingoCard.push(user.card.bingoCard[i].number);
+        };
     };
-    user.game.shownBingoCard.sort();
+    //user.card.shownBingoCard.sort();
+};
+function makeUserBingoCardNice () {
+    user.card.nicerBingoCard = []
+    for ( number in user.card.shownBingoCard ){
+        if (number < 5){
+            user.card.nicerBingoCard.push(user.card.shownBingoCard[number])
+            if (number == 4){
+                user.card.nicerBingoCard.push('\n')
+            }
+        }else if ( number < 10){
+            user.card.nicerBingoCard.push(user.card.shownBingoCard[number])
+            if (number == 9){
+                user.card.nicerBingoCard.push('\n')
+            }
+        }else if ( number < 15){
+            user.card.nicerBingoCard.push(user.card.shownBingoCard[number])
+            if (number == 14){
+                user.card.nicerBingoCard.push('\n')
+            };
+        };
+    };
 };
 function confirmNewNumber (){
-    if(user.game.bingoNumbers.length < 90  ){
+    if(user.balls.bingoNumbers.length < 90  ){
         do {
-            user.game.actualNumber = getRandomNumber();
+            user.balls.actualNumber = getRandomNumber();
         }while (checkActualNumber());
-        //confirm(`Ha salido el numero: ${user.game.actualNumber} `)
-        user.game.bingoNumbers.push(user.game.actualNumber);
+        user.wannaPlay = confirm(`Ha salido el numero: ${user.balls.actualNumber} `)
+        if (!(promptCheck (user.wannaPlay))){
+            return 
+        }
+        user.balls.bingoNumbers.push(user.balls.actualNumber);
     }else{
         confirm('No quedan mas bolas.');
     };
 };
 function checkActualNumber() {
-    for (number in user.game.bingoNumbers){
-        if (user.game.bingoNumbers[number] === user.game.actualNumber){
+    for (number in user.balls.bingoNumbers){
+        if (user.balls.bingoNumbers[number] === user.balls.actualNumber){
             return true;
             break;
         };
     };
 };
 function checkBingoNumbers () {
-    for (number in user.game.bingoCard){
-        if (user.game.bingoCard[number].number === user.game.actualNumber){
-            return user.game.bingoCard[number].matched = true;
+    for (number in user.card.bingoCard){
+        if (user.card.bingoCard[number].number === user.balls.actualNumber){
+            return user.card.bingoCard[number].matched = true;
             break;
         };
     };
 };
+function markUserCardNumbers() {
+    for(number in user.card.bingoCard){
+        if(user.card.bingoCard[number].matched){
+            user.card.shownBingoCard[number] = ' X ';
+        };
+    };
+};
+function checkLineAndBingo (){
+    user.line1 = 0, user.line2 = 0, user.line3 = 0, user.fullBingo = 0;
+    
+    for (number in user.card.bingoCard){
+        user.fullBingo +=user.card.bingoCard[number].matched;
+        if ( number < 5){
+            user.line1 += user.card.bingoCard[number].matched;
+        }else if ( number < 10 ){
+            user.line2 += user.card.bingoCard[number].matched;
+        }else if ( number < 15 ){
+            user.line3 += user.card.bingoCard[number].matched;
+        };
+    }; 
+    if (user.line == true){
+        if (user.line1 == 5 || user.line2 == 5 || user.line3 == 5 ){
+            alert('¡Linea!')
+            user.line = false 
+        };
+    };
+    if (user.fullBingo == 15){
+        alert('¡BINGO! Felicidades has completado el cartón');
+        user.wannaPlay = false
+    }
+};
 function newBingoCard () {
-    for ( let i = 0 ; i < 1 ; i++ ){// editar el 1 per 3 quan vulgi 15 numeros
+    for ( let i = 0 ; i < 3 ; i++ ){// editar el 1 per 3 quan vulgi 15 numeros
         newBingoCardLine();
     };
 };
 function newBingoCardLine (){  
     for ( let i = 0 ; i < 5 ; i++ ){
-        user.game.bingoCard.push({number: getRandomNumber(), matched: false});
+        do {
+            user.balls.actualNumber = getRandomNumber();
+        }while (checkBingoCardNumber());
+        user.card.bingoCard.push({number: user.balls.actualNumber , matched: false});
     };
-    return user.game.bingoCard;
+    return user.card.bingoCard;
+};
+function checkBingoCardNumber() {
+    for (number in user.card.bingoCard){
+        if (user.card.bingoCard[number].number === user.balls.actualNumber){
+            return true;
+            break;
+        };
+    };
 };
 function getRandomNumber () {
     do{
-        randomNumber = Math.floor(Math.random() * 91 );
+        randomNumber = Math.floor(Math.random() * 21 );//recorda canviar a 91
     }while(randomNumber == 0);
+    if(randomNumber < 10){
+        randomNumber = ('0').concat(randomNumber)
+    }
     return randomNumber;
 };
