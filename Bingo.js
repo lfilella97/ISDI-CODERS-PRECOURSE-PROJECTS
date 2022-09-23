@@ -2,6 +2,7 @@ const user =
     {
     name : undefined,
     wannaPlay : true,
+    acceptCard : undefined,
     prize : {
         line : true,
         line1 : 0,
@@ -16,22 +17,28 @@ const user =
         },
     balls : {
         bingoNumbers : [],
-        actualNumber : undefined
+        actualNumber : undefined,
+        markNumber : false
         }
     };
 const ranking = 
     {
     memory : [], 
-    final : []
+    final : ['Por el momento no hay ninguna puntuación almacenada.']
 };
-    
+const rapidGame = false
 function bingo () {
     greetingsUser();
     if (user.wannaPlay === false){
         return;
     };
+    showInfo()
+    do{
     startGame();
+    }while(checkBingoCard());
+    do{
     gameRound();
+    }while(user.wannaPlay === !false);
     getRanking();
     rePlay();
 };
@@ -39,30 +46,36 @@ function greetingsUser () {
     getUserName();
     alert(`Bienvenido ${user.name} a ISDI CODERS BINGO!`);
 };
+function showInfo () {
+    alert(`El sistema de puntuación es sobre 100: \n-Si completas el carton en 15 turnos obtendras la puntuación maxima. \n-En cualquier otro caso ira bajando. \n-Una puntuación superior a 20 se considera muy buena puntuación. \n-Llegar a la puntuacion maxima es improbable, pero NO imposible.`)
+    showRanking();
+};
 function startGame () {
     restartGame();
     newBingoCard();
+    showUserCard();
 };
 function gameRound () {
     showUserCard();
-    confirmNewNumber();
+    confirmKeepPlaying();
     checkBingoNumbers();
     markUserCardNumbers();
     checkLineAndBingo();
-    if (user.wannaPlay === false){
-        return;
-    };
 };
 function getRanking (){
     if(user.prize.fullBingo == 15){
-        ranking.memory.push({name : user.name, score: user.balls.bingoNumbers.length});
+        ranking.memory.push({name : user.name, score: 100 - (((user.balls.bingoNumbers.length - 15)* 100)/75)});
+        ranking.memory.sort((a,b) => a.score - b.score)
         ranking.final = [];
         for ( number in ranking.memory){
-            ranking.final.unshift(ranking.memory[number].name + ' ==> ' + ranking.memory[number].score + '\n');
+            ranking.final.unshift(ranking.memory[number].name + ' ==> ' + Math.round(ranking.memory[number].score) + '\n');
         };
-        alert('Este es el ranking actual\n' + ranking.final.join(''));
+        showRanking();
     };
 };
+function showRanking () {
+    alert('Este es el ranking actual:\n' + (ranking.final).join(''));
+}
 function rePlay () {
     user.wannaPlay = confirm('¿Quieres volver a jugar?');
     if(user.wannaPlay == true){
@@ -83,6 +96,7 @@ function getUserName () {
 function keepUserName () {
     if((user.name) !== undefined){
      confirm('¿Seguir con el mismo usuario?') ? user.name  : user.name = undefined;
+     user.wannaPlay = true
     };
 };
 function promptCheck (it) {
@@ -105,7 +119,7 @@ function restartGame () {
 function showUserCard () {
     getUserBingoCard ();
     makeUserBingoCardNice();
-    alert(`Este es su carton: \n| |${user.card.nicerBingoCard.join('| |')}`)
+    showCardMarked();    
 };
 function getUserBingoCard () {
     if ( user.card.shownBingoCard.length < 15 ){
@@ -135,12 +149,24 @@ function makeUserBingoCardNice () {
         };
     };
 };
-function confirmNewNumber (){
+function showCardMarked () {
+    if (!(user.balls.bingoNumbers.length == 0)){
+        if(!rapidGame){
+        user.balls.markNumber == false ?
+        alert(`Este es su carton: \n| |${user.card.nicerBingoCard.join('| |')}`) :
+        alert(`Este es su carton: \n| |${user.card.nicerBingoCard.join('| |')} \n Se ha marcado el numero |${user.balls.bingoNumbers[user.balls.bingoNumbers.length - 1]}|`);
+        };
+        user.balls.markNumber = false;
+    };
+};
+function confirmKeepPlaying (){
     if(user.balls.bingoNumbers.length < 91  ){
         do {
             user.balls.actualNumber = getRandomNumber();
         }while (checkActualNumber());
-        user.wannaPlay = confirm(`Ha salido el numero: ${user.balls.actualNumber}.`);
+        if(!rapidGame){
+        user.wannaPlay = confirm(`Ha salido el numero: ${user.balls.actualNumber}. \n \n ¿Quieres seguir jugando?`);
+        };
         if (!(promptCheck (user.wannaPlay))){
             return;
         }
@@ -160,6 +186,7 @@ function checkActualNumber() {
 function checkBingoNumbers () {
     for (number in user.card.bingoCard){
         if (user.card.bingoCard[number].number === user.balls.actualNumber){
+            user.balls.markNumber = true
             return user.card.bingoCard[number].matched = true;
             break;
         };
@@ -191,13 +218,19 @@ function checkLineAndBingo (){
         };
     };
     if (user.prize.fullBingo == 15){
-        alert('¡BINGO! Felicidades has completado el cartón');
+        alert(`¡BINGO! Felicidades has completado el cartón en ${user.balls.bingoNumbers.length} turnos.`);
         user.wannaPlay = false;
     };
 };
 function newBingoCard () {
     for ( let i = 0 ; i < 3 ; i++ ){
-        newBingoCardLine();
+    newBingoCardLine();
+    };
+};
+function checkBingoCard () {
+    if ((user.balls.bingoNumbers.length == 0) ){
+    user.acceptCard = confirm(`Este es su carton: \n| |${user.card.nicerBingoCard.join('| |')}\n\n Pulsa ACEPTAR para continuar o CANCELAR para generar uno nuevo.`); 
+    return !user.acceptCard;
     };
 };
 function newBingoCardLine (){  
