@@ -47,7 +47,7 @@ function greetingsUser () {
     alert(`Bienvenido ${user.name} a ISDI CODERS BINGO!`);
 };
 function showInfo () {
-    alert(`El sistema de puntuación es sobre 100: \n-Si completas el carton en 15 turnos obtendras la puntuación maxima. \n-En cualquier otro caso ira bajando. \n-Una puntuación superior a 20 se considera muy buena puntuación. \n-Llegar a la puntuacion maxima es improbable, pero NO imposible.`)
+    alert(`El sistema de puntuación es sobre 100: \n-Si completas el carton en 15 turnos obtendras la puntuación maxima. \n-En cualquier otro caso ira bajando. \n-Una puntuación superior a 20 se considera muy buena puntuación. \n-Llegar a la puntuacion maxima es improbable, pero NO imposible. \n-Tras simular 20.000 partidas el top 3 del ranking son 59, 51 y 49. \n ¡Mucha suerte!`)
     showRanking();
 };
 function startGame () {
