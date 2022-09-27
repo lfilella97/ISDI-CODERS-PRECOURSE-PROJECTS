@@ -226,6 +226,7 @@ function newBingoCard () {
     for ( let i = 0 ; i < 3 ; i++ ){
     newBingoCardLine();
     };
+    user.card.bingoCard.sort((a,b) => a.number - b.number);
 };
 function checkBingoCard () {
     if ((user.balls.bingoNumbers.length == 0) ){
