@@ -27,7 +27,7 @@ const ranking =
     final : ['Por el momento no hay ninguna puntuación almacenada.']
 };
 const rapidGame = false
-function bingo () {
+const bingo = () => {
     greetingsUser();
     if (user.wannaPlay === false){
         return;
@@ -42,27 +42,27 @@ function bingo () {
     getRanking();
     rePlay();
 };
-function greetingsUser () {
+const greetingsUser = () => {
     getUserName();
     alert(`Bienvenido ${user.name} a ISDI CODERS BINGO!`);
 };
-function showInfo () {
+const showInfo = () => {
     alert(`El sistema de puntuación es sobre 100: \n-Si completas el carton en 15 turnos obtendras la puntuación maxima. \n-En cualquier otro caso ira bajando. \n-Una puntuación superior a 20 se considera muy buena puntuación. \n-Llegar a la puntuacion maxima es improbable, pero NO imposible. \n-Tras simular 20.000 partidas el top 3 del ranking son 59, 51 y 49. \n ¡Mucha suerte!`)
     showRanking();
 };
-function startGame () {
+const startGame = () => {
     restartGame();
     newBingoCard();
     showUserCard();
 };
-function gameRound () {
+const gameRound = () => {
     showUserCard();
     confirmKeepPlaying();
     checkBingoNumbers();
     markUserCardNumbers();
     checkLineAndBingo();
 };
-function getRanking (){
+const getRanking = () => {
     if(user.prize.fullBingo == 15){
         ranking.memory.push({name : user.name, score: 100 - (((user.balls.bingoNumbers.length - 15)* 100)/75)});
         ranking.memory.sort((a,b) => a.score - b.score)
@@ -73,10 +73,10 @@ function getRanking (){
         showRanking();
     };
 };
-function showRanking () {
+const showRanking = () => {
     alert('Este es el ranking actual:\n' + (ranking.final).join(''));
 }
-function rePlay () {
+const rePlay = () => {
     user.wannaPlay = confirm('¿Quieres volver a jugar?');
     if(user.wannaPlay == true){
         bingo();
@@ -84,7 +84,7 @@ function rePlay () {
         return;
     };
 };
-function getUserName () {
+const getUserName = () => {
     keepUserName();
     while (promptCheck(user.name) === undefined){
     user.name = prompt('Introduzca su nombre');
@@ -93,13 +93,13 @@ function getUserName () {
         user.wannaPlay = false;
     };
 };
-function keepUserName () {
+const keepUserName = () => {
     if((user.name) !== undefined){
      confirm('¿Seguir con el mismo usuario?') ? user.name  : user.name = undefined;
      user.wannaPlay = true
     };
 };
-function promptCheck (it) {
+const promptCheck = (it) => {
     if (it === ''){ 
         alert('no has introducido ningun valor');
         return undefined;
@@ -111,24 +111,24 @@ function promptCheck (it) {
     }; 
     return true;
 };
-function restartGame () {
+const restartGame = () => {
    return user.balls.bingoNumbers = [],
           user.card.bingoCard = [], 
           user.card.shownBingoCard = [];
 };
-function showUserCard () {
+const showUserCard = () => {
     getUserBingoCard ();
     makeUserBingoCardNice();
     showCardMarked();    
 };
-function getUserBingoCard () {
+const getUserBingoCard = () => {
     if ( user.card.shownBingoCard.length < 15 ){
         for ( let i = 0 ; i < 15 ; i++){
         user.card.shownBingoCard.push(user.card.bingoCard[i].number);
         };
     };
 };
-function makeUserBingoCardNice () {
+const makeUserBingoCardNice = () => {
     user.card.nicerBingoCard = [];
     for ( number in user.card.shownBingoCard ){
         if (number < 5){
@@ -149,7 +149,7 @@ function makeUserBingoCardNice () {
         };
     };
 };
-function showCardMarked () {
+const showCardMarked = () => {
     if (!(user.balls.bingoNumbers.length == 0)){
         if(!rapidGame){
         user.balls.markNumber == false ?
@@ -159,7 +159,7 @@ function showCardMarked () {
         user.balls.markNumber = false;
     };
 };
-function confirmKeepPlaying (){
+const confirmKeepPlaying = () => {
     if(user.balls.bingoNumbers.length < 91  ){
         do {
             user.balls.actualNumber = getRandomNumber();
@@ -175,7 +175,7 @@ function confirmKeepPlaying (){
         confirm('No quedan mas bolas.');
     };
 };
-function checkActualNumber() {
+const checkActualNumber = () => {
     for (number in user.balls.bingoNumbers){
         if (user.balls.bingoNumbers[number] === user.balls.actualNumber){
             return true;
@@ -183,7 +183,7 @@ function checkActualNumber() {
         };
     };
 };
-function checkBingoNumbers () {
+const checkBingoNumbers = () => {
     for (number in user.card.bingoCard){
         if (user.card.bingoCard[number].number === user.balls.actualNumber){
             user.balls.markNumber = true
@@ -192,14 +192,14 @@ function checkBingoNumbers () {
         };
     };
 };
-function markUserCardNumbers() {
+const markUserCardNumbers = () => {
     for(number in user.card.bingoCard){
         if(user.card.bingoCard[number].matched){
             user.card.shownBingoCard[number] = ' X ';
         };
     };
 };
-function checkLineAndBingo (){
+const checkLineAndBingo = () => {
     user.prize.line1 = 0, user.prize.line2 = 0, user.prize.line3 = 0, user.prize.fullBingo = 0;
     for (number in user.card.bingoCard){
         user.prize.fullBingo +=user.card.bingoCard[number].matched;
@@ -222,19 +222,19 @@ function checkLineAndBingo (){
         user.wannaPlay = false;
     };
 };
-function newBingoCard () {
+const newBingoCard = () => {
     for ( let i = 0 ; i < 3 ; i++ ){
     newBingoCardLine();
     };
     user.card.bingoCard.sort((a,b) => a.number - b.number);
 };
-function checkBingoCard () {
+const checkBingoCard = () => {
     if ((user.balls.bingoNumbers.length == 0) ){
     user.acceptCard = confirm(`Este es su carton: \n| |${user.card.nicerBingoCard.join('| |')}\n\n Pulsa ACEPTAR para continuar o CANCELAR para generar uno nuevo.`); 
     return !user.acceptCard;
     };
 };
-function newBingoCardLine (){  
+const newBingoCardLine = () => {  
     for ( let i = 0 ; i < 5 ; i++ ){
         do {
             user.balls.actualNumber = getRandomNumber();
@@ -243,7 +243,7 @@ function newBingoCardLine (){
     };
     return;
 };
-function checkBingoCardNumber() {
+const checkBingoCardNumber = () => {
     for (number in user.card.bingoCard){
         if (user.card.bingoCard[number].number === user.balls.actualNumber){
             return true;
@@ -251,7 +251,7 @@ function checkBingoCardNumber() {
         };
     };
 };
-function getRandomNumber () {
+const getRandomNumber = () => {
     do{
         randomNumber = Math.floor(Math.random() * 91 );
     }while(randomNumber == 0);
