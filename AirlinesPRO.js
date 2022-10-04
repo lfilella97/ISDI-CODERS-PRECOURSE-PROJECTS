@@ -46,7 +46,6 @@ const greetingsUser = () => {
         alert('Buen viaje.');
     }else{
     dataManagement();
-        //informacion de inicio
     console.log(`Bienvenido, ${airlineData.user.name}.`+"\nA continuación le mostramos los vuelos disponibles: ");
     console.log(airlineData.flightsList.join(''));
     console.log(`El PRECIO MEDIO de los vuelos es de ${airlineData.allPrices/flights.length}€.`);
@@ -54,7 +53,7 @@ const greetingsUser = () => {
     console.log('Los destinos de los ULTIMOS vuelos de hoy son: \n' + airlineData.lastFlights.join(''));
     }
 }
-const rankUser = () => {//identificar rango del usuario
+const rankUser = () => {
     airlineData.user.rang = prompt('Introduzca su rango: \n (ADMIN/USER)');
     airlineData.user.rang == 'ADMIN' ? airlineData.user.rang = 'admin' : 
     airlineData.user.rang == 'USER' ? airlineData.user.rang = 'user' : 
@@ -79,7 +78,6 @@ const adminDataList = () => {
         alert('No puedes introducir mas vuelos.');
     }
     dataManagement();
-    //Eliminar vuelos
     let count =[];
     airlineData.user.admin.cancelFlight = ((prompt('¿Quieres eliminar algun vuelo? \n Si (aceptar) / No (cancelar)') == null) ? false : true);
     while (airlineData.user.admin.cancelFlight == true){
@@ -102,7 +100,7 @@ const userDataList = () => {
     dataManagement();
     console.log(airlineData.user.flightsFiltred.join(''));
 }
-const dataManagement = () => { //refrescar valores
+const dataManagement = () => {
     airlineData.allPrices = 0 ;
     airlineData.flightsList = [];
     airlineData.flightsScale = [];
