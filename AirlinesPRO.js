@@ -1,5 +1,4 @@
- 
-const flights = [
+ const flights = [
   { id: 00, to: "New York", from: "Barcelona", cost: 700, scale: false },
   { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, scale: true },
   { id: 02, to: "Paris", from: "Barcelona", cost: 210, scale: false },
@@ -29,30 +28,30 @@ const airlineData = {
     allPrices : 0, 
     flightsScale : [], 
     lastFlights : [],
-}
+};
 const airline = () =>{
     greetingsUser();
-    rankUser();
-    airlineData.user.rang == 'admin' ? adminDataList() : 
-    airlineData.user.rang == 'user' ? userDataList() : false ;
+    if(airlineData.user.name != null){
+        rankUser();
+        airlineData.user.rang == 'admin' ? adminDataList() : 
+        airlineData.user.rang == 'user' ? userDataList() : false ;
+    };
     alert('Introduce airline() en la consola para volver a empezar. \nHasta la próxima');
-}
+};
 const greetingsUser = () => {
     airlineData.user.name = prompt('Bienvenido a ISDI Coders Airlines! \nIntroduzca su nombre:');
     while (airlineData.user.name == ''){
         alert('No ha introducido nungun valor.');
         airlineData.user.name = prompt('Por favor, introduzca su nombre:');
-    }if(airlineData.user.name == null){
-        alert('Buen viaje.');
-    }else{
-    dataManagement();
-    console.log(`Bienvenido, ${airlineData.user.name}.`+"\nA continuación le mostramos los vuelos disponibles: ");
-    console.log(airlineData.flightsList.join(''));
-    console.log(`El PRECIO MEDIO de los vuelos es de ${airlineData.allPrices/flights.length}€.`);
-    console.log("\nA continuación le mostramos los vuelos CON ESCALA: \n" + airlineData.flightsScale.join(''));
-    console.log('Los destinos de los ULTIMOS vuelos de hoy son: \n' + airlineData.lastFlights.join(''));
-    }
-}
+    }if(airlineData.user.name != null){
+        dataManagement();
+        console.log(`Bienvenido, ${airlineData.user.name}.`+"\nA continuación le mostramos los vuelos disponibles: ");
+        console.log(airlineData.flightsList.join(''));
+        console.log(`El PRECIO MEDIO de los vuelos es de ${parseInt(airlineData.allPrices/flights.length)}€.`);
+        console.log("\nA continuación le mostramos los vuelos CON ESCALA: \n" + airlineData.flightsScale.join(''));
+        console.log('Los destinos de los ULTIMOS vuelos de hoy son: \n' + airlineData.lastFlights.join(''));
+    };
+};
 const rankUser = () => {
     airlineData.user.rang = prompt('Introduzca su rango: \n (ADMIN/USER)');
     airlineData.user.rang == 'ADMIN' ? airlineData.user.rang = 'admin' : 
@@ -62,44 +61,61 @@ const rankUser = () => {
              airlineData.user.rang == 'user' )){
         alert('No ha introducido nungun rango valido.');
         airlineData.user.rang = prompt('Por favor, introduzca su rango:\n (ADMIN/USER:)');
-    }
-}
+    };
+};
 const adminDataList = () => {
-    airlineData.user.admin.addFlight = ((prompt(`Bienvenido ${airlineData.user.name} (Admin), ¿quieres añadir vuelos nuevos? \n Si (aceptar) / No (cancelar)`) == null) ? false : true);
+    airlineData.user.admin.addFlight = confirm(`Bienvenido ${airlineData.user.name} (Admin), ¿quieres añadir vuelos nuevos? \n Si (aceptar) / No (cancelar)`);
     while(flights.length < 15 && airlineData.user.admin.addFlight == true){//Añadir vuelos
         flights.push({id: flights.length , to: undefined, from: undefined, cost: undefined, scale: undefined });
-        flights[flights.length - 1].to = (prompt('A continuacion debes añadir los datos del vuelo: \n Destino:'));
+        do{
+            flights[flights.length - 1].to = (prompt('A continuacion debes añadir los datos del vuelo: \n Destino:'));
+            if(flights[flights.length - 1].to == null || flights[flights.length - 1].to == ''){
+                alert('No has introducido ningun valor.')
+            };
+        }while(flights[flights.length - 1].to == null || flights[flights.length - 1].to == '');
+        do{
         flights[flights.length - 1].from = prompt('A continuacion debes añadir los datos del vuelo: \n Salida:');
+        if(flights[flights.length - 1].from == null ||flights[flights.length - 1].from == ''){
+                alert('No has introducido ningun valor.')
+            };
+        }while(flights[flights.length - 1].from == null || flights[flights.length - 1].from == '');
         airlineData.user.admin.introducedPrice = +prompt('A continuacion debes añadir los datos del vuelo: \n Precio:');
             (Number.isNaN(airlineData.user.admin.introducedPrice)) ? flights[flights.length - 1].cost = 0 : flights[flights.length - 1].cost = airlineData.user.admin.introducedPrice;
-        flights[flights.length - 1].scale = prompt('A continuacion debes añadir los datos del vuelo: \n Escala: Si (aceptar) / No (cancelar)') == null ? false : true ;
-        airlineData.user.admin.addFlight = ((prompt('¿Quieres añadir mas vuelos? \n Si (aceptar) / No (cancelar)') == null) ? false : true); 
+        flights[flights.length - 1].scale = confirm('A continuacion debes añadir los datos del vuelo: \n Escala: Si (aceptar) / No (cancelar)');
+        airlineData.user.admin.addFlight = confirm('¿Quieres añadir mas vuelos? \n Si (aceptar) / No (cancelar)'); 
     }if (flights.length == 15) {
         alert('No puedes introducir mas vuelos.');
-    }
+    };
     dataManagement();
     let count =[];
-    airlineData.user.admin.cancelFlight = ((prompt('¿Quieres eliminar algun vuelo? \n Si (aceptar) / No (cancelar)') == null) ? false : true);
+    airlineData.user.admin.cancelFlight = confirm('¿Quieres eliminar algun vuelo? \n Si (aceptar) / No (cancelar)');
     while (airlineData.user.admin.cancelFlight == true){
+        dataManagement();
+        dataManagement();//se repite para eliminar de la lista final los vuelos. (airlineData.flightsList)
         count.push(prompt('Introduce el numero de vuelo a eliminar: \n(solo se tendran en cuanta numeros de vuelos existentes) \n\n ' + airlineData.flightsList.join('')));
         (count < 15) ? airlineData.user.admin.deletedFlightsID.push(+count) : false;
-        count = [];   
-        airlineData.user.admin.cancelFlight = ((prompt('¿Quieres eliminar algun vuelo? \n Si (aceptar) / No (cancelar)') == null) ? false : true); 
-    }
+        count = [];
+        if(flights == 0){
+            alert('Has eliminado todos los vuelos.');
+            airlineData.user.admin.cancelFlight = false;
+        }else{
+            airlineData.user.admin.cancelFlight = confirm('¿Quieres eliminar algun otro vuelo? \n Si (aceptar) / No (cancelar)');
+        };
+    };
     dataManagement();
     dataManagement(); //se repite para eliminar de la lista final los vuelos. (airlineData.flightsList)
     console.log(airlineData.flightsList.join(''));
-}
+};
 const userDataList = () => {
     (alert(`Bienvenido ${airlineData.user.name} (User), \nAhora podras filtrar los vuelos por precio, pulsa aceptar \ne introduce un precio. \n\nVeras todos los vuelos que esten por debajo.`));
     airlineData.user.priceSearch = prompt('Filtrar por precio');
     while (Number.isNaN(airlineData.user.priceSearch)){
         alert('No ha introducido nungun valor valido.');
         airlineData.user.priceSearch = prompt('Por favor, introduzca un precio:');
-    }
+    };
     dataManagement();
     console.log(airlineData.user.flightsFiltred.join(''));
-}
+};
 const dataManagement = () => {
     airlineData.allPrices = 0 ;
     airlineData.flightsList = [];
@@ -111,22 +127,22 @@ const dataManagement = () => {
         airlineData.allPrices += flights[num].cost; //precio medio
         if (flights[num].scale == true ){//filtrado por escala
             airlineData.flightsScale.push( `\nOrigen: ${flights[num].from} ==> ${flights[num].to}. ${flights[num].cost}€ `);
-        }
+        };
         if (flights[num].id > flights.length - 6){//filtrado ultimos 5 vuelos
             airlineData.lastFlights.push( `\n${flights[num].to}.`);
-        }
+        };
         if (flights[num].cost <= airlineData.user.priceSearch){//filtrado por precio
             airlineData.user.flightsFiltred.push( `\nOrigen: ${flights[num].from} ==> ${flights[num].to}. ${flights[num].cost}€ `);
-        }
+        };
     }if ( airlineData.user.admin.deletedFlightsID[0] != undefined){//vuelos eliminados por admin eliminados de la lista de vuelos
         for ( num in flights ){
             for ( let i = 0 ; i < airlineData.user.admin.deletedFlightsID.length ; i++){
                 if (flights[num].id == airlineData.user.admin.deletedFlightsID[i]){
                     airlineData.user.admin.deletedFlights = flights.splice(num,1);
-                }
-            }
-        }
+                };
+            };
+        };
         airlineData.user.admin.deletedFlightsID = [];
-    }
-}
-airline();
+    };
+};
+airline()
