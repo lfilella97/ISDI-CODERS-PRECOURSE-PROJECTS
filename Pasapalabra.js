@@ -1,4 +1,4 @@
-const stuff = [
+const questionPack = [
     [
   {letter: "a", answer: "abducir", status: 0, question: "CON LA A.\n Dicho de una supuesta criatura extraterrestre: Apoderarse de alguien",},
   {letter: "b", answer: "bingo", status: 0, question: "CON LA B.\n Juego que ha sacado de quicio a todos los 'Skylabers' en las sesiones de precurso",},
@@ -14,7 +14,7 @@ const stuff = [
   {letter: "l", answer: "licantropo", status: 0, question: "CON LA L.\n Hombre lobo",},
   {letter: "m", answer: "misantropo", status: 0, question: "CON LA M.\n Persona que huye del trato con otras personas o siente gran aversión hacia ellas",},
   {letter: "n", answer: "necedad", status: 0, question: "CON LA N.\n Demostración de poca inteligencia",},
-  {letter: "ñ", answer: "señal", status: 0, question: "CONTIENE LA Ñ.\n Indicio que permite deducir algo de lo que no se tiene un conocimiento directo.",},
+  {letter: "ñ", answer: "senal", status: 0, question: "CONTIENE LA Ñ.\n Indicio que permite deducir algo de lo que no se tiene un conocimiento directo.",},
   {letter: "o", answer: "orco", status: 0, question: "CON LA O.\n Humanoide fantástico de apariencia terrible y bestial, piel de color verde creada por el escritor Tolkien",},
   {letter: "p", answer: "protoss", status: 0, question: "CON LA P.\n Raza ancestral tecnológicamente avanzada que se caracteriza por sus grandes poderes psíonicos del videojuego StarCraft",},
   {letter: "q", answer: "queso", status: 0, question: "CON LA Q.\n Producto obtenido por la maduración de la cuajada de la leche",},
@@ -43,7 +43,7 @@ const stuff = [
   {letter: "l", answer: "liberar", status: 0, question: "(Empieza por L)\n Hacer que alguien o algo quede libre, eximir a alguien de una obligación ",},
   {letter: "m", answer: "manifestacion", status: 0, question: "(Empieza por M)\n Reunión pública, generalmente al aire libre, en la que los asistentes reclaman algo o expresan su protesta por algo",},
   {letter: "n", answer: "nacionalidad", status: 0, question: "(Empieza por N)\n Estado propio de la persona nacida o naturalizada en una nación",},
-  {letter: "ñ", answer: "soñar", status: 0, question: "(Contiene la Ñ)\n Representarse en la fantasía imágenes o sucesos mientras se duerme ",},
+  {letter: "ñ", answer: "sonar", status: 0, question: "(Contiene la Ñ)\n Representarse en la fantasía imágenes o sucesos mientras se duerme ",},
   {letter: "o", answer: "organizacion", status: 0, question: "(Empieza por O)\n Asociación de personas regulada por un conjunto de normas en función de determinados fines",},
   {letter: "p", answer: "promover", status: 0, question: "(Empieza por P)\nIniciar o impulsar una idea o proyecto procurando su logro ",},
   {letter: "q", answer: "delinquir", status: 0, question: "(Contiene la Q)\n Cometer delito ",},
@@ -72,7 +72,7 @@ const stuff = [
   {letter: "l", answer: "licantropo", status: 0, question: "CON LA L.\n Hombre lobo",},
   {letter: "m", answer: "misantropo", status: 0, question: "CON LA M.\n Persona que huye del trato con otras personas o siente gran aversión hacia ellas",},
   {letter: "n", answer: "necedad", status: 0, question: "CON LA N.\n Demostración de poca inteligencia",},
-  {letter: "ñ", answer: "señal", status: 0, question: "CONTIENE LA Ñ.\n Indicio que permite deducir algo de lo que no se tiene un conocimiento directo.",},
+  {letter: "ñ", answer: "senal", status: 0, question: "CONTIENE LA Ñ.\n Indicio que permite deducir algo de lo que no se tiene un conocimiento directo.",},
   {letter: "o", answer: "orco", status: 0, question: "CON LA O.\n Humanoide fantástico de apariencia terrible y bestial, piel de color verde creada por el escritor Tolkien",},
   {letter: "p", answer: "protoss", status: 0, question: "CON LA P.\n Raza ancestral tecnológicamente avanzada que se caracteriza por sus grandes poderes psíonicos del videojuego StarCraft",},
   {letter: "q", answer: "queso", status: 0, question: "CON LA Q.\n Producto obtenido por la maduración de la cuajada de la leche",},
@@ -88,7 +88,7 @@ const stuff = [
 ]
 ]
 ;
-let questions = stuff[Math.floor(Math.random() * 3)] 
+let questions = questionPack[Math.floor(Math.random() * 3)] 
 const gameInfo = {
     userName : null,
     userAnswer : '',
@@ -135,7 +135,7 @@ const askUserWannaPlay =() => {
     return gameInfo.userWannaPlay;
 };
 const sortQuestions = () => {
-    questions = stuff[Math.floor(Math.random() * 3)];
+    questions = questionPack[Math.floor(Math.random() * 3)];
     gameInfo.wordsTotal = questions.length
 };
 const startGame = () => {
