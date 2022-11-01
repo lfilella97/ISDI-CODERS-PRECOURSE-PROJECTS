@@ -1,4 +1,4 @@
-const questionPack = [
+const stuff = [
     [
   {letter: "a", answer: "abducir", status: 0, question: "CON LA A.\n Dicho de una supuesta criatura extraterrestre: Apoderarse de alguien",},
   {letter: "b", answer: "bingo", status: 0, question: "CON LA B.\n Juego que ha sacado de quicio a todos los 'Skylabers' en las sesiones de precurso",},
@@ -88,7 +88,7 @@ const questionPack = [
 ]
 ]
 ;
-let questions = questionPack[Math.floor(Math.random() * 3)] 
+let questions = stuff[Math.floor(Math.random() * 3)] 
 const gameInfo = {
     userName : null,
     userAnswer : '',
@@ -135,7 +135,7 @@ const askUserWannaPlay =() => {
     return gameInfo.userWannaPlay;
 };
 const sortQuestions = () => {
-    questions = questionPack[Math.floor(Math.random() * 3)];
+    questions = stuff[Math.floor(Math.random() * 3)];
     gameInfo.wordsTotal = questions.length
 };
 const startGame = () => {
@@ -171,8 +171,12 @@ const runRound = () => {
 const getUserAnswer = () => {
     gameInfo.userAnswer = prompt(`${questions[letter].question}`);
     if (gameInfo.userAnswer != null){
-        gameInfo.userAnswer = gameInfo.userAnswer.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu,"");
+        gameInfo.userAnswer = cleanString(gameInfo.userAnswer);
     };
+};
+const cleanString = (string) => {
+    string = string.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu,"");
+    return string;
 };
 const manageAnswer = () => {
     if(/*gameInfo.userAnswer == '' || */gameInfo.userAnswer == 'pasapalabra'){
