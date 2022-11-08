@@ -29,7 +29,7 @@ const questionPack = [
   {letter: "z", answer: "zen", status: 0, question: "CON LA Z.\n Escuela de budismo que busca la experiencia de la sabiduría más allá del discurso racional",},
 ],
 [
-  {letter: "a", answer: "ahorrar", status: 0, question: "(Empieza por A)\n Guardar dinero como previsión para necesidades futuras "},
+  {letter: "a", answer: "buscar", status: 0, question: "(Empieza por A)\n Guardar dinero como previsión para necesidades futuras "},
   {letter: "b", answer: "buscar", status: 0, question: "(Empieza por B)\n Acto anterior de encontrar algo a proposito",},
   {letter: "c", answer: "chorizo", status: 0, question: "(Empieza por C)\n Coloquialmente, ratero, ladronzuelo ",},
   {letter: "d", answer: "deportar", status: 0, question: "(Empieza por D)\n Desterrar a alguien de algún lugar, por lo regular extranjero, y confinarlo allí por razones políticas o como castigo  ",},
