@@ -1,4 +1,3 @@
-
 const flights = [
   { id: 00, to: "New York", from: "Barcelona", cost: 700, scale: false },
   { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, scale: true },
