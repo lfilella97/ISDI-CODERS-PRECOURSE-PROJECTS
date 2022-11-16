@@ -1,4 +1,3 @@
-
 let digitOne = prompt('introduce el primer número:');
 let digitTwo = prompt('introduce el segundo número:');
 
