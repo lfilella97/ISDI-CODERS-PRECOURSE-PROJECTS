@@ -1,5 +1,4 @@
-
-function calculadora(){
+const calculadora = () => {
     let resultado = []
     do{
         getNumbers()
@@ -8,11 +7,11 @@ function calculadora(){
             resultado.unshift(result)
         }
         resultado != 0 ? alert('Ultimos resultados:' + resultado) : resultado
-        response = prompt(`Quieres hacer otro calculo? si -> aceptar / no -> cancelar`)
-    }while(response != null)
+        response = confirm(`Quieres hacer otro calculo? si -> aceptar / no -> cancelar`)
+    }while(response != false)
     alert('Bye!')
 }
-function getNumbers(){
+const getNumbers = () => {
     valoresIntroducidos = []
     result = []
     let = count = -1;
@@ -30,7 +29,6 @@ function getNumbers(){
                 alert('ERROR: No has introducido ningun valor');
                 break;
             }else{
-                operaciones()
                 result.push(operaciones())
             }
                 break;
@@ -41,8 +39,8 @@ function getNumbers(){
     }while (count < 100);
     return result;
 }
-function operaciones(){
-    function sum() {
+const operaciones = () => {
+    const sum = () => {
         let acc = 0;
         for (num in valoresIntroducidos) {
             (num == 0)? 
@@ -52,9 +50,9 @@ function operaciones(){
         if (!(Number.isInteger(acc))){
             acc = acc.toFixed(3)
         }
-        return acc;
+        return parseFloat(acc);
     }
-    function res() { 
+    const res = () => {
         let acc = 0;
         for (num in valoresIntroducidos) {
             (num == 0)? 
@@ -64,9 +62,9 @@ function operaciones(){
         if (!(Number.isInteger(acc))){
             acc = acc.toFixed(3)
         }
-        return acc;
+        return parseFloat(acc);
     }
-    function mult() {
+    const mult = () => {
         let acc;
         for (num in valoresIntroducidos) {
             (num == 0)? 
@@ -76,9 +74,9 @@ function operaciones(){
         if (!(Number.isInteger(acc))){
             acc = acc.toFixed(3)
         }
-        return acc;
+        return parseFloat(acc);
     }
-    function div() {
+    const div = () => {
         let acc = 0;
         for (num in valoresIntroducidos) {
             (num == 0)? 
@@ -88,9 +86,8 @@ function operaciones(){
         if (!(Number.isInteger(acc))){
             acc = acc.toFixed(3)
         }
-        return acc;
+        return parseFloat(acc);
     }
     return '\nEl resultado de las operaciones es: ' + sum() + ', ' + res() + ', ' + mult() + ', ' +  div()
 }
-
 calculadora()
