@@ -26,7 +26,7 @@ const ranking =
     memory : [], 
     final : ['Por el momento no hay ninguna puntuación almacenada.']
 };
-const rapidGame = false
+let rapidGame = false
 const bingo = () => {
     greetingsUser();
     if (user.wannaPlay === false){
@@ -78,7 +78,9 @@ const showRanking = () => {
 }
 const rePlay = () => {
     user.wannaPlay = confirm('¿Quieres volver a jugar?');
-    if(user.wannaPlay == true){
+    if(rapidGame == false){
+        rapidGame = confirm('¿Quieres activar el modo rapido? \n Solo apareceran los resultados de cada partida.');
+    }if(user.wannaPlay == true){
         bingo();
     }else{
         return;
